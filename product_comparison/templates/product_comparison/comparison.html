@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Product Comparison
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid p-4">
+
+    <h2 class="fw-bold mb-2">Product Comparison</h2>
+
+    <p class="text-muted mb-4">
+        Compare the scanned product with the original product.
+    </p>
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header fw-bold">
+                    User Product
+                </div>
+
+                <div class="card-body text-center">
+
+                    <div class="border rounded p-5 bg-light">
+                        Image Placeholder
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header fw-bold">
+                    Original Product
+                </div>
+
+                <div class="card-body text-center">
+
+                    <div class="border rounded p-5 bg-light">
+                        Image Placeholder
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header fw-bold">
+            Comparison Details
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Feature</th>
+                        <th>User Product</th>
+                        <th>Original Product</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Name</td>
+                        <td>{{ user_product.name }}</td>
+                        <td>{{ original_product.name }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Brand</td>
+                        <td>{{ user_product.brand }}</td>
+                        <td>{{ original_product.brand }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Price</td>
+                        <td>{{ user_product.price }}</td>
+                        <td>{{ original_product.price }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Barcode</td>
+                        <td>{{ user_product.barcode }}</td>
+                        <td>{{ original_product.barcode }}</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header fw-bold">
+            AI Analysis
+        </div>
+
+        <div class="card-body">
+
+            <h6>Authenticity Score</h6>
+
+            <div class="progress mb-3">
+
+                <div class="progress-bar"
+                     role="progressbar"
+                     style="width: {{ score }}%;">
+
+                    {{ score }}%
+
+                </div>
+
+            </div>
+
+            <h6>Verdict</h6>
+
+            <p class="fw-bold text-success">
+                {{ verdict }}
+            </p>
+
+            <h6>Reason</h6>
+
+            <p>
+                {{ reason }}
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

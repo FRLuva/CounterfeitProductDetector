@@ -4,7 +4,7 @@ from django.shortcuts import render
 def home(request):
     return render(
         request,
-        "dashboard/home.html"
+        "verification_history/home.html"
     )
 
 
@@ -12,28 +12,47 @@ def verification_history(request):
 
     verification_records = [
 
-        {
-            "product_name": "Nike Air Max",
-            "score": "95%",
-            "result": "Authentic",
-            "date": "12 Jul 2026",
-        },
+    {
+        "id": 1,
+        "product_name": "Nike Air Max",
+        "score": "95%",
+        "result": "Authentic",
+        "date": "12 Jul 2026",
+    },
 
-        {
-            "product_name": "Apple AirPods Pro",
-            "score": "22%",
-            "result": "Fake",
-            "date": "10 Jul 2026",
-        },
+    {
+        "id": 2,
+        "product_name": "Apple AirPods Pro",
+        "score": "22%",
+        "result": "Fake",
+        "date": "10 Jul 2026",
+    },
 
-        {
-            "product_name": "Samsung USB Charger",
-            "score": "84%",
-            "result": "Likely Authentic",
-            "date": "08 Jul 2026",
-        },
+    {
+        "id": 3,
+        "product_name": "Samsung USB Charger",
+        "score": "84%",
+        "result": "Likely Authentic",
+        "date": "08 Jul 2026",
+    },
 
-    ]
+    {
+        "id": 4,
+        "product_name": "Sony Headphones",
+        "score": "56%",
+        "result": "Fake",
+        "date": "08 Jul 2026",
+    },
+
+    {
+        "id": 5,
+        "product_name": "Nivea Acne Control Cleanser",
+        "score": "78%",
+        "result": "Likely Authentic",
+        "date": "05 Jul 2026",
+    },
+
+]
 
     context = {
 
@@ -43,6 +62,6 @@ def verification_history(request):
 
     return render(
         request,
-        "dashboard/history.html",
+        "verification_history/history.html",
         context
     )

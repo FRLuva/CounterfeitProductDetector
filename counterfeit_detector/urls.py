@@ -1,13 +1,13 @@
 from django.contrib import admin
 
+
 from django.urls import path, include
 
 urlpatterns = [
 
-    path(
-        "",
-        include("dashboard.urls")
-    ),
+    path("", include("verification_history.urls")),
+
+    path('product-comparison/', include('product_comparison.urls')),
 
     path(
         "admin/",
