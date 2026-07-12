@@ -1,0 +1,59 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    min-height: calc(100vh - 56px);
+    background-color: #343a40;
+    padding: 20px;
+}
+
+.sidebar-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.sidebar-link:hover {
+    background-color: #495057;
+    color: white;
+}
+
+.logout-link {
+    margin-top: 30px;
+    color: #ffb3b3;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+}
+
+.btn-sm {
+    border-radius: 8px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
