@@ -38,9 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'dashboard',
-    'verification_history',
+
+    "admin_panel",
+    "chatbot",
+    "pdf_reports",
+    "product_comparison",
+    "verification_history",
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
