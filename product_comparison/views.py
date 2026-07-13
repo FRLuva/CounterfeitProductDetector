@@ -12,6 +12,7 @@ def comparison(request, product_id):
                 "brand": "Nike",
                 "price": "$35",
                 "barcode": "1234567890123",
+                "image": "product_comparison/images/nike_user.jpg",
             },
 
             "original_product": {
@@ -19,6 +20,7 @@ def comparison(request, product_id):
                 "brand": "Nike",
                 "price": "$180",
                 "barcode": "1234567890123",
+                "image": "product_comparison/images/nike_original.jpg",
             },
 
             "score": 95,
@@ -34,6 +36,7 @@ def comparison(request, product_id):
                 "brand": "Apple",
                 "price": "$40",
                 "barcode": "2222222222222",
+                "image": None,
             },
 
             "original_product": {
@@ -41,6 +44,7 @@ def comparison(request, product_id):
                 "brand": "Apple",
                 "price": "$249",
                 "barcode": "1111111111111",
+                "image": None,
             },
 
             "score": 22,
@@ -56,6 +60,7 @@ def comparison(request, product_id):
                 "brand": "Samsung",
                 "price": "$12",
                 "barcode": "3333333333333",
+                "image": None,
             },
 
             "original_product": {
@@ -63,6 +68,7 @@ def comparison(request, product_id):
                 "brand": "Samsung",
                 "price": "$25",
                 "barcode": "3333333333333",
+                "image": None,
             },
 
             "score": 84,
@@ -78,6 +84,7 @@ def comparison(request, product_id):
                 "brand": "Sony",
                 "price": "$45",
                 "barcode": "4444444444444",
+                "image": None,
             },
 
             "original_product": {
@@ -85,6 +92,7 @@ def comparison(request, product_id):
                 "brand": "Sony",
                 "price": "$199",
                 "barcode": "5555555555555",
+                "image": None,
             },
 
             "score": 56,
@@ -100,6 +108,7 @@ def comparison(request, product_id):
                 "brand": "Nivea",
                 "price": "$9",
                 "barcode": "6666666666666",
+                "image": None,
             },
 
             "original_product": {
@@ -107,6 +116,7 @@ def comparison(request, product_id):
                 "brand": "Nivea",
                 "price": "$18",
                 "barcode": "6666666666666",
+                "image": None,
             },
 
             "score": 78,

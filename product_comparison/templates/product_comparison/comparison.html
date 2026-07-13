@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
 Product Comparison
 {% endblock %}
@@ -8,13 +10,17 @@ Product Comparison
 
 <div class="container-fluid p-4">
 
-    <h2 class="fw-bold mb-2">Product Comparison</h2>
+    <h2 class="fw-bold mb-2">
+        Product Comparison
+    </h2>
 
     <p class="text-muted mb-4">
         Compare the scanned product with the original product.
     </p>
 
     <div class="row g-4">
+
+        <!-- User Product -->
 
         <div class="col-md-6">
 
@@ -26,15 +32,31 @@ Product Comparison
 
                 <div class="card-body text-center">
 
-                    <div class="border rounded p-5 bg-light">
-                        Image Placeholder
-                    </div>
+                    {% if user_product.image %}
+
+                        <img
+                            src="{% static user_product.image %}"
+                            alt="User Product"
+                            class="img-fluid rounded"
+                            style="max-height:300px;">
+
+                    {% else %}
+
+                        <div class="border rounded p-5 bg-light">
+
+                            Image Not Available
+
+                        </div>
+
+                    {% endif %}
 
                 </div>
 
             </div>
 
         </div>
+
+        <!-- Original Product -->
 
         <div class="col-md-6">
 
@@ -46,9 +68,23 @@ Product Comparison
 
                 <div class="card-body text-center">
 
-                    <div class="border rounded p-5 bg-light">
-                        Image Placeholder
-                    </div>
+                    {% if original_product.image %}
+
+                        <img
+                            src="{% static original_product.image %}"
+                            alt="Original Product"
+                            class="img-fluid rounded"
+                            style="max-height:300px;">
+
+                    {% else %}
+
+                        <div class="border rounded p-5 bg-light">
+
+                            Image Not Available
+
+                        </div>
+
+                    {% endif %}
 
                 </div>
 
@@ -57,6 +93,8 @@ Product Comparison
         </div>
 
     </div>
+
+    <!-- Comparison Details -->
 
     <div class="card shadow-sm mt-4">
 
@@ -122,6 +160,8 @@ Product Comparison
 
     </div>
 
+    <!-- AI Analysis -->
+
     <div class="card shadow-sm mt-4">
 
         <div class="card-header fw-bold">
@@ -130,13 +170,16 @@ Product Comparison
 
         <div class="card-body">
 
-            <h6>Authenticity Score</h6>
+            <h6>
+                Authenticity Score
+            </h6>
 
             <div class="progress mb-3">
 
-                <div class="progress-bar"
-                     role="progressbar"
-                     style="width: {{ score }}%;">
+                <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: {{ score }}%;">
 
                     {{ score }}%
 
@@ -144,16 +187,46 @@ Product Comparison
 
             </div>
 
-            <h6>Verdict</h6>
+            <h6>
+                Verdict
+            </h6>
 
-            <p class="fw-bold text-success">
-                {{ verdict }}
-            </p>
+            {% if verdict == "Authentic" %}
 
-            <h6>Reason</h6>
+                <span class="badge bg-success fs-6">
+
+                    {{ verdict }}
+
+                </span>
+
+            {% elif verdict == "Fake" %}
+
+                <span class="badge bg-danger fs-6">
+
+                    {{ verdict }}
+
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-warning text-dark fs-6">
+
+                    {{ verdict }}
+
+                </span>
+
+            {% endif %}
+
+            <hr>
+
+            <h6>
+                Reason
+            </h6>
 
             <p>
+
                 {{ reason }}
+
             </p>
 
         </div>
