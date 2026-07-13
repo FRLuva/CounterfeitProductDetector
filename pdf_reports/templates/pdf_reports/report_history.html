@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+PDF Reports
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid p-4">
+
+    <h2 class="fw-bold mb-4">
+
+        Downloaded PDF Reports
+
+    </h2>
+
+    {% if reports %}
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Product</th>
+
+                    <th>Verdict</th>
+
+                    <th>Score</th>
+
+                    <th>Downloaded On</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for report in reports %}
+
+                <tr>
+
+                    <td>{{ forloop.counter }}</td>
+
+                    <td>{{ report.product_name }}</td>
+
+                    <td>{{ report.verdict }}</td>
+
+                    <td>{{ report.score }}%</td>
+
+                    <td>{{ report.downloaded_at }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <div class="alert alert-info">
+
+            No PDF reports have been downloaded yet.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block title %} PDF Report Overview {% endblock %}
+{% block content %}
+
+<div class="container-fluid p-4">
+  <h2 class="fw-bold mb-4">PDF Report Overview</h2>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4>{{ report.product_name }}</h4>
+
+      <hr />
+
+      <p>
+        <strong>Brand:</strong>
+
+        {{ report.brand }}
+      </p>
+
+      <p>
+        <strong>Verification Result:</strong>
+
+        {{ report.verdict }}
+      </p>
+
+      <p>
+        <strong>Confidence Score:</strong>
+
+        {{ report.score }}
+      </p>
+
+      <p>
+        <strong>AI Summary:</strong>
+
+        {{ report.reason }}
+      </p>
+
+      <hr />
+
+      <h5>This report includes:</h5>
+
+      <ul>
+        <li>Product Information</li>
+
+        <li>Comparison Details</li>
+
+        <li>AI Analysis</li>
+
+        <li>Verification Result</li>
+      </ul>
+
+      <div class="mt-4">
+        <a href="{% url 'download_report' report.id %}" class="btn btn-success">
+          Confirm & Download
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
