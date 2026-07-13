@@ -1,0 +1,202 @@
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Admin Login</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+
+  <body class="bg-light">
+
+    <div class="container">
+
+      <div class="row vh-100 justify-content-center align-items-center">
+
+        <div class="col-md-5">
+
+          <div class="card shadow p-4">
+
+            <h2 class="text-center mb-4">
+              Admin Login
+            </h2>
+
+            {% if error %}
+
+            <div class="alert alert-danger">
+              {{ error }}
+            </div>
+
+            {% endif %}
+
+            <form method="POST">
+
+              {% csrf_token %}
+
+              <!-- Secret ID -->
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Admin Secret ID
+                </label>
+
+                <div class="input-group">
+
+                  <input
+                    type="password"
+                    id="secret_id"
+                    name="secret_id"
+                    class="form-control"
+                    placeholder="Enter Secret ID"
+                    required
+                  >
+
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    onclick="toggleSecretID()">
+
+                    <i
+                      id="secretIcon"
+                      class="bi bi-eye">
+                    </i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              <!-- Email -->
+
+              <div class="mb-3">
+
+                <label class="form-label">
+                  Admin Email
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="admin@example.com"
+                  required
+                >
+
+              </div>
+
+              <!-- Password -->
+
+              <div class="mb-4">
+
+                <label class="form-label">
+                  Password
+                </label>
+
+                <div class="input-group">
+
+                  <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+                  >
+
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    onclick="togglePassword()">
+
+                    <i
+                      id="passwordIcon"
+                      class="bi bi-eye">
+                    </i>
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-dark w-100">
+
+                Enter Dashboard
+
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <script>
+
+      function toggleSecretID() {
+
+        const input = document.getElementById("secret_id");
+        const icon = document.getElementById("secretIcon");
+
+        if (input.type === "password") {
+
+          input.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+
+        } else {
+
+          input.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+
+        }
+
+      }
+
+      function togglePassword() {
+
+        const input = document.getElementById("password");
+        const icon = document.getElementById("passwordIcon");
+
+        if (input.type === "password") {
+
+          input.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+
+        } else {
+
+          input.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+
+        }
+
+      }
+
+    </script>
+
+  </body>
+
+</html>
+```

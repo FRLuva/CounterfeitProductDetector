@@ -1,12 +1,8 @@
 from django.shortcuts import render
 
 
-def home(request):
-    return render(
-        request,
-        "verification_history/home.html"
-    )
-
+def user_home(request):
+    return render(request, 'verification_history/user_home.html')
 
 def verification_history(request):
 
