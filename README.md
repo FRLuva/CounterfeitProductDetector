@@ -60,6 +60,6 @@ Counterfeit Product Detector is a Django-based web application that helps users 
 | Authenticity Score | Minhaz | ⏳ |
 | AI Chatbot | Luva | ⏳ |
 | Verification History | Luva | ✅ UI Complete |
-| PDF Report | Luva | ⏳ |
+| PDF Report | Luva | ✅ Complete |
 | Admin Dashboard | Luva | ⏳ |
 | Product Comparison | Luva | ✅ Complete |
