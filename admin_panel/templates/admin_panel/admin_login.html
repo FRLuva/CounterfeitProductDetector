@@ -19,41 +19,27 @@
   </head>
 
   <body class="bg-light">
-
     <div class="container">
-
       <div class="row vh-100 justify-content-center align-items-center">
-
         <div class="col-md-5">
-
           <div class="card shadow p-4">
-
-            <h2 class="text-center mb-4">
-              Admin Login
-            </h2>
+            <h2 class="text-center mb-4">Admin Login</h2>
 
             {% if error %}
 
-            <div class="alert alert-danger">
-              {{ error }}
-            </div>
+            <div class="alert alert-danger">{{ error }}</div>
 
             {% endif %}
 
             <form method="POST">
-
               {% csrf_token %}
 
               <!-- Secret ID -->
 
               <div class="mb-3">
-
-                <label class="form-label">
-                  Admin Secret ID
-                </label>
+                <label class="form-label"> Admin Secret ID </label>
 
                 <div class="input-group">
-
                   <input
                     type="password"
                     id="secret_id"
@@ -61,31 +47,22 @@
                     class="form-control"
                     placeholder="Enter Secret ID"
                     required
-                  >
+                  />
 
                   <button
                     class="btn btn-outline-secondary"
                     type="button"
-                    onclick="toggleSecretID()">
-
-                    <i
-                      id="secretIcon"
-                      class="bi bi-eye">
-                    </i>
-
+                    onclick="toggleSecretID()"
+                  >
+                    <i id="secretIcon" class="bi bi-eye"> </i>
                   </button>
-
                 </div>
-
               </div>
 
               <!-- Email -->
 
               <div class="mb-3">
-
-                <label class="form-label">
-                  Admin Email
-                </label>
+                <label class="form-label"> Admin Email </label>
 
                 <input
                   type="email"
@@ -93,20 +70,15 @@
                   class="form-control"
                   placeholder="admin@example.com"
                   required
-                >
-
+                />
               </div>
 
               <!-- Password -->
 
               <div class="mb-4">
-
-                <label class="form-label">
-                  Password
-                </label>
+                <label class="form-label"> Password </label>
 
                 <div class="input-group">
-
                   <input
                     type="password"
                     id="password"
@@ -114,89 +86,58 @@
                     class="form-control"
                     placeholder="Password"
                     required
-                  >
+                  />
 
                   <button
                     class="btn btn-outline-secondary"
                     type="button"
-                    onclick="togglePassword()">
-
-                    <i
-                      id="passwordIcon"
-                      class="bi bi-eye">
-                    </i>
-
+                    onclick="togglePassword()"
+                  >
+                    <i id="passwordIcon" class="bi bi-eye"> </i>
                   </button>
-
                 </div>
-
               </div>
 
-              <button
-                type="submit"
-                class="btn btn-dark w-100">
-
+              <button type="submit" class="btn btn-dark w-100">
                 Enter Dashboard
-
               </button>
-
             </form>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
 
     <script>
-
       function toggleSecretID() {
-
         const input = document.getElementById("secret_id");
         const icon = document.getElementById("secretIcon");
 
         if (input.type === "password") {
-
           input.type = "text";
           icon.classList.remove("bi-eye");
           icon.classList.add("bi-eye-slash");
-
         } else {
-
           input.type = "password";
           icon.classList.remove("bi-eye-slash");
           icon.classList.add("bi-eye");
-
         }
-
       }
 
       function togglePassword() {
-
         const input = document.getElementById("password");
         const icon = document.getElementById("passwordIcon");
 
         if (input.type === "password") {
-
           input.type = "text";
           icon.classList.remove("bi-eye");
           icon.classList.add("bi-eye-slash");
-
         } else {
-
           input.type = "password";
           icon.classList.remove("bi-eye-slash");
           icon.classList.add("bi-eye");
-
         }
-
       }
-
     </script>
-
   </body>
-
 </html>
 ```
