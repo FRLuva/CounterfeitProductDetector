@@ -1,36 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold"> Counterfeit Product Detector </span>
 
-    <div class="container-fluid">
+    <div class="ms-auto d-flex align-items-center">
+      <a
+        href="{% url 'system_settings' %}"
+        class="btn btn-outline-light me-2"
+        title="System Settings"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </a>
 
-        <span class="navbar-brand fw-bold">
-
-            Counterfeit Product Detector
-
-        </span>
-
-        <div class="ms-auto d-flex align-items-center">
-
-            <span class="text-light me-4">
-
-                Administrator Panel
-
-            </span>
-
-            <span class="badge bg-secondary me-3">
-
-                Admin
-
-            </span>
-
-            <a href="{% url 'landing' %}"
-               class="btn btn-outline-light btn-sm">
-
-                Logout
-
-            </a>
-
-        </div>
-
+      <a
+        href="{% url 'landing' %}"
+        class="btn btn-outline-light"
+        title="Logout"
+      >
+        <i class="bi bi-power"></i>
+      </a>
     </div>
-
+  </div>
 </nav>

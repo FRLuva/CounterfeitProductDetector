@@ -1,49 +1,372 @@
-{% extends 'base_admin.html' %}
-
-{% block title %}
-Admin Dashboard
-{% endblock %}
-
+{% extends 'base_admin.html' %} {% block title %} Admin Dashboard {% endblock %}
 {% block content %}
 
 <div class="container-fluid">
+  <h2 class="fw-bold mb-2">Admin Dashboard</h2>
 
-    <h2 class="fw-bold mb-2">
-        Admin Dashboard
-    </h2>
+  <p class="text-muted mb-4">
+    Welcome to the Counterfeit Product Detection System Administration Panel.
+  </p>
 
-    <p class="text-muted mb-4">
-        Welcome to the Counterfeit Product Detection System Administration Panel.
-    </p>
+<div class="row g-4">
 
-    <div class="alert alert-info">
+    <!-- Registered Users -->
 
-        <strong>Development Version</strong>
+    <div class="col-lg-3 col-md-6">
 
-        <hr>
+        <a
+            href="{% url 'user_management' %}"
+            class="text-decoration-none text-dark">
 
-        This dashboard is currently using dummy data.
+            <div class="card shadow-sm h-100">
 
-        It will later display:
+                <div class="card-body text-center">
 
-        <ul class="mt-2 mb-0">
+                    <h1>👥</h1>
 
-            <li>Total registered users</li>
+                    <h2 class="fw-bold">
 
-            <li>Total product verifications</li>
+                        {{ total_users }}
 
-            <li>Counterfeit detection statistics</li>
+                    </h2>
 
-            <li>Recent verification activity</li>
+                    <p class="text-muted mb-0">
 
-            <li>Community reports</li>
+                        Registered Users
 
-            <li>System analytics</li>
+                    </p>
 
-        </ul>
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- Product Verifications -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a
+            href="{% url 'verification_logs' %}"
+            class="text-decoration-none text-dark">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>🔍</h1>
+
+                    <h2 class="fw-bold">
+
+                        {{ total_verifications }}
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        Product Verifications
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- Fake Products -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a
+            href="{% url 'fake_products' %}"
+            class="text-decoration-none text-dark">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>❌</h1>
+
+                    <h2 class="fw-bold">
+
+                        {{ fake_products }}
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        Fake Products Detected
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- PDF Reports -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a
+            href="{% url 'report_history' %}"
+            class="text-decoration-none text-dark">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>📄</h1>
+
+                    <h2 class="fw-bold">
+
+                        {{ pdf_reports }}
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        PDF Reports Generated
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- Community Alerts -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a
+            href="{% url 'community_alerts' %}"
+            class="text-decoration-none text-dark">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>🚨</h1>
+
+                    <h2 class="fw-bold">
+
+                        {{ community_alerts }}
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        Community Alerts
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
 
     </div>
 
 </div>
+
+  <div class="card shadow-sm mt-5">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0">Recent Verification Activity</h5>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Product</th>
+
+            <th>User</th>
+
+            <th>Result</th>
+
+            <th>Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for verification in recent_verifications %}
+
+          <tr>
+            <td>{{ verification.product }}</td>
+
+            <td>{{ verification.user }}</td>
+
+            <td>
+              {% if verification.result == "Authentic" %}
+
+              <span class="badge bg-success"> {{ verification.result }} </span>
+
+              {% else %}
+
+              <span class="badge bg-danger"> {{ verification.result }} </span>
+
+              {% endif %}
+            </td>
+
+            <td>{{ verification.date }}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr class="my-5">
+
+<div class="card shadow-sm mb-5">
+
+    <div class="card-header">
+
+        <h4 class="mb-0">
+
+            Verification Statistics
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <canvas id="verificationChart" height="120"></canvas>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header">
+
+        <h4 class="mb-0">
+
+            Verification Trend (Last 7 Days)
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <canvas id="verificationTrendChart" height="120"></canvas>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+//
+// Verification Statistics (Bar Chart)
+//
+const statisticsCtx = document.getElementById('verificationChart');
+
+new Chart(statisticsCtx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: ['Authentic', 'Likely Authentic', 'Fake'],
+
+        datasets: [{
+
+            label: 'Number of Verifications',
+
+            data: [520, 204, 96],
+
+            borderWidth: 1
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+
+            }
+
+        }
+
+    }
+
+});
+
+//
+// Verification Trend (Line Chart)
+//
+const trendCtx = document.getElementById('verificationTrendChart');
+
+new Chart(trendCtx, {
+
+    type: 'line',
+
+    data: {
+
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+
+        datasets: [{
+
+            label: 'Daily Verifications',
+
+            data: [82, 95, 110, 97, 125, 138, 173],
+
+            fill: false,
+
+            tension: 0.3,
+
+            borderWidth: 3
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
 
 {% endblock %}
