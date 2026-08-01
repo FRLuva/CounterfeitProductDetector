@@ -1,65 +1,59 @@
-# Counterfeit Product Detector
+# FakeGuard
 
-## Overview
+FakeGuard is a React/Vite and Express/MongoDB application with:
 
-Counterfeit Product Detector is a Django-based web application that helps users verify product authenticity using AI, OCR, barcode scanning, and community reports.
+- Email/password registration and login
+- Google Sign-In
+- Facebook Login
+- JWT-based application sessions
+- Community alert and supply-chain features
 
----
+## Repository safety
 
-## Team Members
+This GitHub-ready package intentionally excludes:
 
-### Member 1 – Sayeda Safia Tuli
+- `.env` files
+- MongoDB credentials
+- JWT secrets
+- Facebook App Secret
+- provider tokens
+- `node_modules`
+- build output
+- local Git history
+- local HTTPS certificate files
 
-- Login/Register
-- Community Fake Product Alert
-- Geo-location
-- Supply Chain Traceability
+Only `.env.example` templates are included. Create local `.env` files before running the project.
 
-### Member 2 – Minhaz Hemel
+## Setup
 
-- Product Image Upload
-- OCR Text Extraction
-- Barcode Scan
-- AI Fake Product Detection
-- Authenticity Score
+### Backend
 
-### Member 3 – Faria Rashid Luva
+```bash
+cd backend
+npm install
+```
 
-- Smart AI Chatbot
-- Verification History
-- PDF Report Download
-- Admin Dashboard
-- Product Comparison Tool
+Copy `.env.example` to `.env` and add your own credentials, then run:
 
----
+```bash
+npm run dev
+```
 
-## Technologies
+The backend runs at `http://localhost:5001`.
 
-- Django
-- Python
-- HTML
-- CSS
-- JavaScript
-- Bootstrap
-- SQLite
+### Frontend
 
----
+```bash
+cd frontend
+npm install
+```
 
-## Feature Progress
+Copy `.env.example` to `.env` and add your own Google Client ID and Facebook App ID, then run:
 
-| Feature | Owner | Status |
-|----------|--------|--------|
-| Login/Register | Sayeda | ⏳ |
-| Community Alerts | Sayeda | ⏳ |
-| Geo-location | Sayeda | ⏳ |
-| Supply Chain | Sayeda | ⏳ |
-| Image Upload | Minhaz | ⏳ |
-| OCR | Minhaz | ⏳ |
-| Barcode | Minhaz | ⏳ |
-| AI Detection | Minhaz | ⏳ |
-| Authenticity Score | Minhaz | ⏳ |
-| AI Chatbot | Luva | ⏳ |
-| Verification History | Luva | ✅ UI Complete |
-| PDF Report | Luva | ✅ Complete |
-| Admin Dashboard | Luva | ⏳ |
-| Product Comparison | Luva | ✅ Complete |
+```bash
+npm run dev
+```
+
+The frontend runs at `https://localhost:5000`. Because development HTTPS uses a self-signed certificate, the browser may show a local certificate warning.
+
+See [SOCIAL_LOGIN_SETUP.md](./SOCIAL_LOGIN_SETUP.md) for provider configuration.
