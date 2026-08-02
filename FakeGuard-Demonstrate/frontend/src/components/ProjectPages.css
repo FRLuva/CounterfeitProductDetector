@@ -1,0 +1,454 @@
+.project-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #0f5c5e;
+}
+
+.project-nav a {
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.project-nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.chain-trace-page,
+.create-chain-page,
+.add-chain-event-page {
+  min-height: 100vh;
+  padding: 35px 16px;
+  background: #eef4f8;
+}
+
+.chain-trace-section,
+.create-chain-section,
+.add-chain-event-section {
+  width: min(900px, 94%);
+  margin: auto;
+  padding: 30px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.chain-trace-section h2,
+.create-chain-section h2,
+.add-chain-event-section h2 {
+  margin-bottom: 8px;
+  text-align: center;
+  color: #17324d;
+}
+
+.chain-trace-section > p,
+.create-chain-section > p,
+.add-chain-event-section > p {
+  margin-bottom: 26px;
+  text-align: center;
+  color: #64748b;
+}
+
+.chain-trace-section form,
+.create-chain-section form,
+.add-chain-event-section form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.chain-trace-section label,
+.create-chain-section label,
+.add-chain-event-section label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.chain-trace-section input,
+.create-chain-section input,
+.create-chain-section textarea,
+.add-chain-event-section input,
+.add-chain-event-section select,
+.add-chain-event-section textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+  background: #ffffff;
+}
+
+.create-chain-section textarea,
+.add-chain-event-section textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.chain-trace-section button,
+.create-chain-section button,
+.add-chain-event-section button {
+  padding: 13px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #138077;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chain-trace-section button:hover,
+.create-chain-section button:hover,
+.add-chain-event-section button:hover {
+  background: #0f675f;
+}
+
+.trace-message,
+.message,
+.location-details,
+.trace-result,
+.create-chain-section form > p,
+.add-chain-event-section form > p,
+.create-chain-section form > div,
+.add-chain-event-section form > div {
+  grid-column: 1 / -1;
+}
+
+.trace-result {
+  margin-top: 26px;
+  padding: 24px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.trace-result h3 {
+  margin-top: 20px;
+  color: #17324d;
+}
+
+.trace-event {
+  margin-top: 16px;
+  padding: 18px;
+  border-left: 5px solid #138077;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.message.success {
+  padding: 13px;
+  border-radius: 8px;
+  color: #166534;
+  background: #dcfce7;
+}
+
+.message.error {
+  padding: 13px;
+  border-radius: 8px;
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.location-details {
+  padding: 14px;
+  border-radius: 8px;
+  color: #115e59;
+  background: #f0fdfa;
+}
+
+@media (max-width: 700px) {
+  .chain-trace-section form,
+  .create-chain-section form,
+  .add-chain-event-section form {
+    grid-template-columns: 1fr;
+  }
+
+  .trace-message,
+  .message,
+  .location-details,
+  .trace-result,
+  .create-chain-section form > p,
+  .add-chain-event-section form > p,
+  .create-chain-section form > div,
+  .add-chain-event-section form > div {
+    grid-column: auto;
+  }
+}
+/* Geo-location verification */
+.geo-verification-page {
+  min-height: 100vh;
+  padding: 42px 16px 70px;
+  background:
+    radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 32%),
+    #eef4f8;
+}
+
+.geo-verification-section {
+  width: min(1050px, 95%);
+  margin: 0 auto;
+}
+
+.page-heading {
+  max-width: 720px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.page-heading h2 {
+  margin: 5px 0 10px;
+  color: #17324d;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.page-heading > p:last-child {
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #0f766e;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.geo-workflow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.geo-card,
+.geo-result {
+  padding: 28px;
+  border: 1px solid #dbe7ef;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+}
+
+.geo-card {
+  position: relative;
+}
+
+.step-number {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #0f766e;
+  font-weight: 800;
+}
+
+.geo-card h3,
+.geo-result h3 {
+  margin: 0 0 9px;
+  color: #17324d;
+}
+
+.geo-card > p {
+  color: #64748b;
+}
+
+.geo-card form {
+  display: grid;
+  gap: 16px;
+}
+
+.geo-card label {
+  display: grid;
+  gap: 7px;
+  color: #334155;
+  font-weight: 700;
+}
+
+.geo-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.geo-card button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 18px;
+  border: 0;
+  border-radius: 10px;
+  color: #ffffff;
+  background: #0f766e;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.geo-card button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.location-message {
+  margin: 12px 0 0;
+  color: #0f766e !important;
+  font-weight: 700;
+}
+
+.coordinate-grid,
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 0;
+}
+
+.coordinate-grid div,
+.result-grid div {
+  padding: 13px;
+  border-radius: 12px;
+  background: #f1f5f9;
+}
+
+.coordinate-grid dt,
+.result-grid dt {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.coordinate-grid dd,
+.result-grid dd {
+  margin: 5px 0 0;
+  color: #17324d;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.geo-verification-section > .message {
+  margin: 22px 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.geo-verification-section > .message.success {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.geo-verification-section > .message.error {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+}
+
+.geo-result {
+  margin-top: 22px;
+}
+
+.geo-result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.geo-result-header p {
+  margin: 4px 0 0;
+  color: #64748b;
+}
+
+.authenticity-badge {
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.authenticity-badge.authentic {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.authenticity-badge.suspicious,
+.authenticity-badge.expired {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.authenticity-badge.fake {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.result-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 22px 0;
+}
+
+.location-assessment {
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+}
+
+.location-assessment p {
+  margin: 7px 0 0;
+  line-height: 1.55;
+}
+
+.location-assessment.success {
+  color: #166534;
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.location-assessment.warning {
+  color: #92400e;
+  border-color: #fcd34d;
+  background: #fffbeb;
+}
+
+.location-assessment.neutral {
+  color: #334155;
+  background: #f8fafc;
+}
+
+.verification-note {
+  margin: 18px 0 0;
+  color: #64748b;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+  .geo-workflow,
+  .coordinate-grid,
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .geo-result-header {
+    flex-direction: column;
+  }
+}
