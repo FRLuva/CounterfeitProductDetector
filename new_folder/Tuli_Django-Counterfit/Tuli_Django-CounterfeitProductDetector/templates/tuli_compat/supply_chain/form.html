@@ -1,0 +1,25 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}{{ title }} - FakeGuard{% endblock %}
+
+{% block content %}
+{% if record %}<p><a href='{% url 'supply_chain:detail' record.trace_id %}'>← Back to {{ record.trace_id }}</a></p>{% endif %}
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>{% if record %}Trace {{ record.trace_id }}{% else %}Supply-chain registry{% endif %}</p>
+        <h1>{{ title }}</h1>
+        <p>{% if record %}Add the next accountable step in this product journey.{% else %}Register a product and its first manufacturing or custody event.{% endif %}</p>
+    </div>
+</header>
+<div class='card form-card wide'>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class='form-actions'>
+            <button class='button ghost' type='button' data-geolocation>Capture event location</button>
+            <button type='submit'>Save trace information</button>
+        </div>
+        <p class='gps-status' data-geolocation-status role='status' aria-live='polite'>GPS coordinates are optional.</p>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}Moderation queue - FakeGuard{% endblock %}
+
+{% block content %}
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Staff workspace</p>
+        <h1>Moderation queue</h1>
+        <p>Review community evidence and decide which alerts can be shown publicly.</p>
+    </div>
+</header>
+
+<nav class='filter-row' aria-label='Filter alerts by status'>
+    {% for value, label in statuses %}
+        <a class='{% if value == selected_status %}selected{% endif %}' href='?status={{ value }}'>{{ label }}</a>
+    {% endfor %}
+</nav>
+
+{% for alert in alerts %}
+    <article class='card'>
+        <div class='card-header'>
+            <div><h2>{{ alert.product_name }}</h2><p>{{ alert.brand_name }} · {{ alert.category }}</p></div>
+            <span class='badge risk-{{ alert.risk_level }}'>{{ alert.get_risk_level_display }} risk</span>
+        </div>
+        <p>{{ alert.suspicious_reason }}</p>
+        <div class='card-meta'><span>Reported by {{ alert.reported_by }}</span><span>{{ alert.purchase_location }}</span><time datetime='{{ alert.created_at|date:'c' }}'>{{ alert.created_at|date:'M j, Y' }}</time></div>
+        <div class='form-actions'>
+            <a class='button ghost' href='{% url 'community_alerts:detail' alert.pk %}'>View report</a>
+            <a class='button' href='{% url 'community_alerts:moderate' alert.pk %}'>Review decision</a>
+        </div>
+    </article>
+{% empty %}
+    <div class='empty-state'>There are no {{ selected_status }} alerts.</div>
+{% endfor %}
+{% endblock %}
