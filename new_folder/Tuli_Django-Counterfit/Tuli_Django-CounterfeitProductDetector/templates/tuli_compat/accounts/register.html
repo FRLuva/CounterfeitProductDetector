@@ -1,0 +1,22 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}Create an account - FakeGuard{% endblock %}
+
+{% block content %}
+<section class='auth-shell'>
+    <div class='auth-intro'>
+        <p class='eyebrow'>Join FakeGuard</p>
+        <h1>Turn what you notice into useful evidence.</h1>
+        <p>Your account lets you report suspicious products, contribute to approved discussions, and create trace histories.</p>
+    </div>
+    <div class='card form-card'>
+        <h2>Create an account</h2>
+        <form method='post'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type='submit'>Create account</button>
+        </form>
+        <p><small>Already registered? <a href='{% url 'accounts:login' %}'>Log in</a>.</small></p>
+    </div>
+</section>
+{% endblock %}

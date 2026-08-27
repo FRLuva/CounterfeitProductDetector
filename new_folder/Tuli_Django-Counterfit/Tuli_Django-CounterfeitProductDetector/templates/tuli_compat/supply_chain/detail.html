@@ -1,0 +1,63 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}{{ record.product_name }} trace - FakeGuard{% endblock %}
+
+{% block content %}
+<p><a href='{% url 'supply_chain:verify' %}'>← Back to product verification</a></p>
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Trace {{ record.trace_id }}</p>
+        <h1>{{ record.product_name }}</h1>
+        <p>{{ record.brand_name }} · {{ record.category }}</p>
+    </div>
+    <span class='badge status-{{ record.authenticity_status }}'>{{ record.get_authenticity_status_display }}</span>
+</header>
+
+<div class='detail-grid'>
+    <article class='card'>
+        <h2>Product identity</h2>
+        <dl class='detail-list'>
+            <div><dt>Barcode</dt><dd>{{ record.barcode }}</dd></div>
+            <div><dt>Batch</dt><dd>{{ record.batch_number }}</dd></div>
+            <div><dt>Manufacturer</dt><dd>{{ record.manufacturer_name }}</dd></div>
+            <div><dt>Current stage</dt><dd>{{ record.get_current_stage_display }}</dd></div>
+            <div><dt>Manufactured</dt><dd>{{ record.manufacture_date|date:'M j, Y'|default:'Not provided' }}</dd></div>
+            <div><dt>Expires</dt><dd>{{ record.expiry_date|date:'M j, Y'|default:'Not provided' }}</dd></div>
+            <div><dt>Current owner</dt><dd>{{ record.current_owner|default:'Not provided' }}</dd></div>
+            <div><dt>Current location</dt><dd>{{ record.current_location|default:'Not provided' }}</dd></div>
+        </dl>
+    </article>
+    <aside class='card'>
+        <h2>Trace status</h2>
+        <p><span class='badge status-{{ record.authenticity_status }}'>{{ record.get_authenticity_status_display }}</span></p>
+        <p>Created by {{ record.created_by.get_full_name|default:record.created_by.username }} on <time datetime='{{ record.created_at|date:'c' }}'>{{ record.created_at|date:'M j, Y' }}</time>.</p>
+        {% if user == record.created_by or user.is_staff %}
+            <a class='button' href='{% url 'supply_chain:add_event' record.trace_id %}'>Add trace event</a>
+        {% endif %}
+    </aside>
+</div>
+
+<section class='section'>
+    <div class='section-heading'><div><p class='eyebrow'>Chain of custody</p><h2>Trace events</h2></div></div>
+    <div class='timeline'>
+        {% for event in record.events.all %}
+            <article class='card'>
+                <div class='card-header'>
+                    <div><h3>{{ event.get_stage_display }}</h3><p>{{ event.actor_name }} · {{ event.get_actor_type_display }}</p></div>
+                    <span class='badge status-{{ event.verification_status }}'>{{ event.get_verification_status_display }}</span>
+                </div>
+                <dl class='detail-list'>
+                    <div><dt>Location</dt><dd>{{ event.location_name }}</dd></div>
+                    <div><dt>Event time</dt><dd><time datetime='{{ event.event_time|date:'c' }}'>{{ event.event_time|date:'M j, Y, P' }}</time></dd></div>
+                    {% if event.document_ref %}<div><dt>Document reference</dt><dd>{{ event.document_ref }}</dd></div>{% endif %}
+                    {% if event.verified_by %}<div><dt>Verified by</dt><dd>{{ event.verified_by }}</dd></div>{% endif %}
+                    {% if event.latitude %}<div><dt>Coordinates</dt><dd>{{ event.latitude|floatformat:5 }}, {{ event.longitude|floatformat:5 }}</dd></div>{% endif %}
+                </dl>
+                {% if event.note %}<p>{{ event.note|linebreaksbr }}</p>{% endif %}
+            </article>
+        {% empty %}
+            <div class='empty-state'>No events have been recorded for this product.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

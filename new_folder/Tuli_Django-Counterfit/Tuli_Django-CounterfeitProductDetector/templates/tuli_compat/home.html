@@ -1,0 +1,79 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}FakeGuard - Safer products through shared evidence{% endblock %}
+
+{% block content %}
+<section class='hero'>
+    <div class='hero-copy'>
+        <p class='eyebrow'>Community-powered product safety</p>
+        <h1>Check the journey. Report the warning signs.</h1>
+        <p class='hero-text'>FakeGuard brings community reports and supply-chain history together so suspicious products can be identified and investigated.</p>
+        <div class='button-row'>
+            <a class='button' href='{% url 'supply_chain:verify' %}'>Verify a product</a>
+            {% if user.is_authenticated %}
+                <a class='button secondary' href='{% url 'community_alerts:create' %}'>Report a product</a>
+            {% else %}
+                <a class='button secondary' href='{% url 'accounts:register' %}'>Join the community</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class='hero-panel' aria-label='FakeGuard activity summary'>
+        <div class='stat'><strong>{{ approved_count }}</strong><span>approved community alerts</span></div>
+        <div class='stat'><strong>{{ trace_count }}</strong><span>registered product traces</span></div>
+        <div class='trust-line'><span aria-hidden='true'>✓</span> Evidence-led review</div>
+        <div class='trust-line'><span aria-hidden='true'>✓</span> Location-aware trace history</div>
+        <div class='trust-line'><span aria-hidden='true'>✓</span> Public verification</div>
+    </div>
+</section>
+
+<section class='section'>
+    <div class='section-heading'>
+        <div><p class='eyebrow'>Core workflows</p><h2>One project, three ways to protect buyers</h2></div>
+    </div>
+    <div class='feature-grid'>
+        <article class='feature-card'>
+            <span class='feature-number'>01</span>
+            <h3>Community alerts</h3>
+            <p>Browse approved reports with product details, evidence, risk levels, and community discussion.</p>
+            <a href='{% url 'community_alerts:list' %}'>Browse alerts <span aria-hidden='true'>→</span></a>
+        </article>
+        <article class='feature-card'>
+            <span class='feature-number'>02</span>
+            <h3>Report concerns</h3>
+            <p>Submit suspicious packaging, barcode, shop, evidence images, and optional GPS information for moderation.</p>
+            <a href='{% url 'community_alerts:create' %}'>Submit an alert <span aria-hidden='true'>→</span></a>
+        </article>
+        <article class='feature-card'>
+            <span class='feature-number'>03</span>
+            <h3>Trace verification</h3>
+            <p>Use a barcode and batch number to follow manufacturing, distribution, retail, and warning events.</p>
+            <a href='{% url 'supply_chain:verify' %}'>Check a trace <span aria-hidden='true'>→</span></a>
+        </article>
+    </div>
+</section>
+
+<section class='section split-list'>
+    <div>
+        <div class='section-heading'><div><p class='eyebrow'>Latest reports</p><h2>Approved alerts</h2></div><a href='{% url 'community_alerts:list' %}'>View all</a></div>
+        {% for alert in approved_alerts %}
+            <a class='compact-card' href='{% url 'community_alerts:detail' alert.pk %}'>
+                <span><strong>{{ alert.product_name }}</strong><small>{{ alert.brand_name }} · {{ alert.get_risk_level_display }} risk</small></span>
+                <span class='badge risk-{{ alert.risk_level }}'>{{ alert.get_risk_level_display }}</span>
+            </a>
+        {% empty %}
+            <div class='empty-state'>No approved alerts yet. Demo data can be loaded from the setup instructions.</div>
+        {% endfor %}
+    </div>
+    <div>
+        <div class='section-heading'><div><p class='eyebrow'>Trace registry</p><h2>Recent products</h2></div><a href='{% url 'supply_chain:verify' %}'>Verify</a></div>
+        {% for record in recent_records %}
+            <a class='compact-card' href='{% url 'supply_chain:detail' record.trace_id %}'>
+                <span><strong>{{ record.product_name }}</strong><small>{{ record.trace_id }} · {{ record.get_current_stage_display }}</small></span>
+                <span class='badge status-{{ record.authenticity_status }}'>{{ record.get_authenticity_status_display }}</span>
+            </a>
+        {% empty %}
+            <div class='empty-state'>No product traces yet. Sign in to create the first record.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

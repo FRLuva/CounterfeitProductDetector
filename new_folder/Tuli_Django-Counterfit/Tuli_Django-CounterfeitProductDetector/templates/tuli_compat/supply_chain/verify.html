@@ -1,0 +1,52 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}Verify a product trace - FakeGuard{% endblock %}
+
+{% block content %}
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Public product check</p>
+        <h1>Verify a product trace</h1>
+        <p>Enter the barcode and batch number printed on the package. Location is optional and can be compared with the latest recorded trace event.</p>
+    </div>
+</header>
+
+<form class='card form-card' method='get'>
+    {{ form.as_p }}
+    <div class='form-actions'>
+        <button class='button ghost' type='button' data-geolocation>Use my location</button>
+        <button type='submit'>Verify product</button>
+    </div>
+    <p class='gps-status' data-geolocation-status role='status' aria-live='polite'>Location is optional and remains part of this verification request only.</p>
+</form>
+
+{% if record %}
+    <section class='card'>
+        <div class='card-header'>
+            <div><p class='eyebrow'>Matching trace found</p><h2><a href='{% url 'supply_chain:detail' record.trace_id %}'>{{ record.product_name }}</a></h2></div>
+            <span class='badge status-{{ record.authenticity_status }}'>{{ record.get_authenticity_status_display }}</span>
+        </div>
+        <p>{{ record.brand_name }} · {{ record.category }}</p>
+        <dl class='detail-list'>
+            <div><dt>Trace ID</dt><dd>{{ record.trace_id }}</dd></div>
+            <div><dt>Current stage</dt><dd>{{ record.get_current_stage_display }}</dd></div>
+            <div><dt>Barcode</dt><dd>{{ record.barcode }}</dd></div>
+            <div><dt>Batch</dt><dd>{{ record.batch_number }}</dd></div>
+        </dl>
+        {% if location_result %}
+            {% if location_result.status == 'matched' %}
+                <p><span class='badge status-verified'>Location matches</span> You are approximately {{ location_result.distance_km }} km from the latest geotagged event.</p>
+            {% elif location_result.status == 'outside_range' %}
+                <p><span class='badge status-suspicious'>Outside expected area</span> You are approximately {{ location_result.distance_km }} km from the latest geotagged event.</p>
+            {% else %}
+                <p>The trace has no geotagged event available for comparison.</p>
+            {% endif %}
+        {% endif %}
+        <a class='button' href='{% url 'supply_chain:detail' record.trace_id %}'>View complete trace</a>
+    </section>
+{% elif ambiguous %}
+    <div class='empty-state'><h2>More than one trace matches</h2><p>Please ask a moderator to review the duplicate barcode and batch records.</p></div>
+{% elif searched %}
+    <div class='empty-state'><h2>No matching trace</h2><p>Check the barcode and batch number exactly as printed, then try again.</p></div>
+{% endif %}
+{% endblock %}

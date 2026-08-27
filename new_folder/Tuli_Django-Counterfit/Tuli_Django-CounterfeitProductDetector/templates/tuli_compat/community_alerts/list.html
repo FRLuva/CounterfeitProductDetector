@@ -1,0 +1,37 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}{% if personal %}My alerts{% else %}Community alerts{% endif %} - FakeGuard{% endblock %}
+
+{% block content %}
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>{% if personal %}Your reporting history{% else %}Approved public reports{% endif %}</p>
+        <h1>{% if personal %}My alerts{% else %}Community alerts{% endif %}</h1>
+        <p>{% if personal %}Track every report you submitted, including items still under review.{% else %}Review product concerns that have been checked and approved by moderators.{% endif %}</p>
+    </div>
+    <a class='button' href='{% url 'community_alerts:create' %}'>Submit an alert</a>
+</header>
+
+<div class='grid'>
+    {% for alert in alerts %}
+        <article class='card'>
+            <div class='card-header'>
+                <span class='badge risk-{{ alert.risk_level }}'>{{ alert.get_risk_level_display }} risk</span>
+                <span class='badge status-{{ alert.status }}'>{{ alert.get_status_display }}</span>
+            </div>
+            <h2><a href='{% url 'community_alerts:detail' alert.pk %}'>{{ alert.product_name }}</a></h2>
+            <p><strong>{{ alert.brand_name }}</strong> · {{ alert.category }}</p>
+            <p>{{ alert.suspicious_reason }}</p>
+            <div class='card-meta'>
+                <span>{{ alert.purchase_location }}</span>
+                <time datetime='{{ alert.created_at|date:'c' }}'>{{ alert.created_at|date:'M j, Y' }}</time>
+            </div>
+        </article>
+    {% empty %}
+        <div class='empty-state'>
+            <h2>No alerts found</h2>
+            <p>{% if personal %}Your submitted alerts will appear here.{% else %}There are no approved public alerts yet.{% endif %}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

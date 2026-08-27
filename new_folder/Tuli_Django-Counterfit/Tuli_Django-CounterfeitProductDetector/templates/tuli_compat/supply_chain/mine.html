@@ -1,0 +1,28 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}My supply-chain records - FakeGuard{% endblock %}
+
+{% block content %}
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Product custody</p>
+        <h1>My supply-chain records</h1>
+        <p>Create traceable product histories and add each manufacturing, distribution, retail, or warning event.</p>
+    </div>
+    <a class='button' href='{% url 'supply_chain:create' %}'>Create a trace record</a>
+</header>
+
+<div class='grid'>
+    {% for record in records %}
+        <article class='card'>
+            <div class='card-header'><span class='badge status-{{ record.authenticity_status }}'>{{ record.get_authenticity_status_display }}</span></div>
+            <h2><a href='{% url 'supply_chain:detail' record.trace_id %}'>{{ record.product_name }}</a></h2>
+            <p>{{ record.brand_name }} · {{ record.category }}</p>
+            <p><strong>{{ record.trace_id }}</strong></p>
+            <div class='card-meta'><span>{{ record.get_current_stage_display }}</span><span>{{ record.current_location|default:'Location not recorded' }}</span></div>
+        </article>
+    {% empty %}
+        <div class='empty-state'><h2>No trace records yet</h2><p>Create a record to begin documenting a product journey.</p></div>
+    {% endfor %}
+</div>
+{% endblock %}

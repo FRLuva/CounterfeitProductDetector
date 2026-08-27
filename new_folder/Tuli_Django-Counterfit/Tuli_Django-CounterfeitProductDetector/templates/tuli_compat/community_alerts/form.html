@@ -1,0 +1,25 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}Report a suspicious product - FakeGuard{% endblock %}
+
+{% block content %}
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Community evidence</p>
+        <h1>Report a suspicious product</h1>
+        <p>Describe what you observed. Reports remain private until a moderator approves them.</p>
+    </div>
+</header>
+
+<div class='card form-card wide'>
+    <form method='post' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class='form-actions'>
+            <button class='button ghost' type='button' data-geolocation>Capture GPS location</button>
+            <button type='submit'>Submit for review</button>
+        </div>
+        <p class='gps-status' data-geolocation-status role='status' aria-live='polite'>Location is optional. Your browser will ask permission before sharing it.</p>
+    </form>
+</div>
+{% endblock %}

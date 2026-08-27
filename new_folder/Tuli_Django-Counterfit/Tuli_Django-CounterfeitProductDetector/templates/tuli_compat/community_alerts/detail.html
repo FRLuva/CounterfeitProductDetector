@@ -1,0 +1,99 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}{{ alert.product_name }} alert - FakeGuard{% endblock %}
+
+{% block content %}
+<p><a href='{% url 'community_alerts:list' %}'>← Back to community alerts</a></p>
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Community report #{{ alert.pk }}</p>
+        <h1>{{ alert.product_name }}</h1>
+        <p>{{ alert.brand_name }} · {{ alert.category }}</p>
+    </div>
+    <div class='button-row'>
+        <span class='badge risk-{{ alert.risk_level }}'>{{ alert.get_risk_level_display }} risk</span>
+        <span class='badge status-{{ alert.status }}'>{{ alert.get_status_display }}</span>
+    </div>
+</header>
+
+<div class='detail-grid'>
+    <article class='card'>
+        <h2>Why this product was reported</h2>
+        <p><strong>{{ alert.suspicious_reason }}</strong></p>
+        <p>{{ alert.description|default:'No additional description was provided.' }}</p>
+        <dl class='detail-list'>
+            <div><dt>Shop</dt><dd>{{ alert.shop_name|default:'Not provided' }}</dd></div>
+            <div><dt>Purchase location</dt><dd>{{ alert.purchase_location }}</dd></div>
+            <div><dt>Barcode</dt><dd>{{ alert.barcode|default:'Not provided' }}</dd></div>
+            <div><dt>Batch number</dt><dd>{{ alert.batch_number|default:'Not provided' }}</dd></div>
+            <div><dt>Reported by</dt><dd>{{ alert.reported_by.get_full_name|default:alert.reported_by.username }}</dd></div>
+            <div><dt>Reported</dt><dd><time datetime='{{ alert.created_at|date:'c' }}'>{{ alert.created_at|date:'M j, Y, P' }}</time></dd></div>
+        </dl>
+
+        {% if alert.evidence.all %}
+            <h2>Evidence images</h2>
+            <div class='evidence-grid'>
+                {% for item in alert.evidence.all %}
+                    <a href='{{ item.image.url }}'><img src='{{ item.image.url }}' alt='Evidence for {{ alert.product_name }}' loading='lazy'></a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </article>
+
+    <aside>
+        <section class='card'>
+            <h2>Community signal</h2>
+            <p><strong>{{ alert.confirmations.count }}</strong> confirmation{{ alert.confirmations.count|pluralize }}</p>
+            {% if alert.status == 'approved' and user.is_authenticated %}
+                {% if user_has_confirmed %}
+                    <p><span class='badge status-verified'>You confirmed this report</span></p>
+                {% else %}
+                    <form method='post' action='{% url 'community_alerts:confirm' alert.pk %}'>
+                        {% csrf_token %}
+                        <button type='submit'>Confirm this report</button>
+                    </form>
+                {% endif %}
+            {% elif alert.status == 'approved' %}
+                <p><a href='{% url 'accounts:login' %}?next={{ request.path|urlencode }}'>Log in</a> to confirm this report.</p>
+            {% endif %}
+        </section>
+
+        <section class='card'>
+            <h2>Location review</h2>
+            <p><span class='badge status-{{ alert.geo_verification_status }}'>{{ alert.get_geo_verification_status_display }}</span></p>
+            <p>{{ alert.geo_address|default:alert.purchase_location }}</p>
+            {% if alert.latitude %}<small>Coordinates {{ alert.latitude|floatformat:5 }}, {{ alert.longitude|floatformat:5 }} · {{ alert.get_geo_source_display }}</small>{% endif %}
+            {% if alert.geo_verification_note %}<p>{{ alert.geo_verification_note }}</p>{% endif %}
+        </section>
+
+        {% if user.is_staff %}
+            <a class='button' href='{% url 'community_alerts:moderate' alert.pk %}'>Moderate this report</a>
+        {% endif %}
+    </aside>
+</div>
+
+{% if alert.admin_note and user.is_authenticated %}
+    {% if user.is_staff or user == alert.reported_by %}
+        <section class='card'><h2>Moderator note</h2><p>{{ alert.admin_note }}</p></section>
+    {% endif %}
+{% endif %}
+
+<section class='section'>
+    <div class='section-heading'><div><p class='eyebrow'>Discussion</p><h2>Community comments</h2></div></div>
+    {% if alert.status == 'approved' and user.is_authenticated %}
+        <form class='card' method='post' action='{% url 'community_alerts:comment' alert.pk %}'>
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type='submit'>Add comment</button>
+        </form>
+    {% endif %}
+    {% for comment in alert.comments.all %}
+        <article class='card'>
+            <div class='card-header'><strong>{{ comment.user.get_full_name|default:comment.user.username }}</strong><time datetime='{{ comment.created_at|date:'c' }}'><small>{{ comment.created_at|date:'M j, Y, P' }}</small></time></div>
+            <p>{{ comment.text|linebreaksbr }}</p>
+        </article>
+    {% empty %}
+        <div class='empty-state'>No comments yet.</div>
+    {% endfor %}
+</section>
+{% endblock %}

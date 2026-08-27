@@ -1,0 +1,24 @@
+{% extends 'tuli_compat/base.html' %}
+
+{% block title %}Moderate {{ alert.product_name }} - FakeGuard{% endblock %}
+
+{% block content %}
+<p><a href='{% url 'community_alerts:moderation_queue' %}'>← Back to review queue</a></p>
+<header class='page-header'>
+    <div>
+        <p class='eyebrow'>Staff moderation</p>
+        <h1>Review {{ alert.product_name }}</h1>
+        <p>{{ alert.suspicious_reason }} · submitted by {{ alert.reported_by }}</p>
+    </div>
+</header>
+<div class='card form-card'>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class='form-actions'>
+            <a class='button ghost' href='{% url 'community_alerts:detail' alert.pk %}'>View full report</a>
+            <button type='submit'>Save review</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
